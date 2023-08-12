@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "./Register.css";
+import axios from "axios";
 
 
 const Register = ()=>{
@@ -18,6 +19,17 @@ const Register = ()=>{
         // console.log(name, value)
         setregister({...register, [name]: value})
     }
+
+    const registeruser =()=>{
+    const  {rname, number, email, password, reenterpass } = register
+    if (rname&& number&& email&& password &&reenterpass&& (password===reenterpass)){
+    axios.post("register" , register)
+    .then(res => console.log(res))
+    }else {
+        alert("Invalid input")
+    }
+    }
+    
     return <>
     <div className="register">
     {/* {console.log("Register" , register)} */}
@@ -63,7 +75,8 @@ const Register = ()=>{
     value={register.reenterpass}
     onChange={handlechange}></input>
     </div><br></br>
-    <button className="btn"> Register </button>
+    <button className="btn"
+    onClick={registeruser}> Register </button>
     </div>
     </>
 }
